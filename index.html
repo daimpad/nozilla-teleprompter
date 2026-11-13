@@ -1,219 +1,143 @@
 <!doctype html>
-<html lang="en">
+<html lang="de" data-theme="dark">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Teleprompter — nozilla</title>
 
-    <title>TelePrompter</title>
-
-    <!-- Mobile Specific Meta Tags -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="description" content="Teleprompter im Browser: Text einfügen, Tempo wählen, ablesen. Ein Werkzeug von nozilla.">
+    <meta name="theme-color" content="#0C0C0A" />
+    <meta name="color-scheme" content="dark" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="TelePrompter" />
+    <meta name="apple-mobile-web-app-title" content="Teleprompter" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="theme-color" content="#141414" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover" />
 
-    <!-- Default Meta Tags -->
-    <meta name="description" content="Browser-based TelePrompter with Remote Control">
-    <meta name="keywords" content="TelePrompter, Remote, Browser, Open Source">
-    <meta name="cache-control" content="public">
-    <meta name="company" content="Fatal Encounters">
-    <meta name="googlebot" content="index,follow">
-    <meta name="robots" content="noodp,noydir">
-    <meta name="robots" content="index,follow">
-    <meta name="author" content="Peter Schmalfeldt">
-
-    <!-- Twitter META Info -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:site" content="@mrmidi">
-    <meta property="twitter:title" content="TelePrompter">
-    <meta property="twitter:description" content="Browser-based TelePrompter with Remote Control">
-    <meta property="twitter:creator" content="@mrmidi">
-    <meta property="twitter:image:src" content="https://promptr.tv/assets/img/social-card.png">
-    <meta property="twitter:domain" content="promptr.tv">
-
-    <!-- Open Graph protocol -->
-    <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="TelePrompter">
-    <meta property="og:url" content="https://promptr.tv">
-    <meta property="og:image" content="https://promptr.tv/assets/img/social-card.png">
-    <meta property="og:site_name" content="TelePrompter">
-    <meta property="og:description" content="Browser-based TelePrompter with Remote Control">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:title" content="Teleprompter — nozilla">
+    <meta property="og:description" content="Text einfügen, Tempo wählen, ablesen.">
+    <meta property="og:image" content="https://daimpad.github.io/nozilla-teleprompter/assets/img/social-card.png">
+    <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Dublin Core Metadata -->
-    <meta name="dc:language" content="en_US">
-    <meta name="dc:title" content="TelePrompter">
-    <meta name="dc:source" content="https://promptr.tv">
-    <meta name="dc:description" content="Browser-based TelePrompter with Remote Control">
-
-    <!-- Manifest -->
     <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/daimpad/nozilla-ci@71939b3d4a01f3f181f2e6dc86783bae8654f2f9/project/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" sizes="192x192" href="assets/img/icon-192x192.png" />
 
-    <!-- Icons -->
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" sizes="192x192" href="assets/img/apple/icon-192x192.png" />
-
-    <!-- Canonical -->
-    <link rel="canonical" href="https://promptr.tv" />
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.min.css" />
+    <!-- nozilla Design System, fester Stand: ein Update ist eine bewusste Änderung dieser Zeilen -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/daimpad/nozilla-ci@71939b3d4a01f3f181f2e6dc86783bae8654f2f9/project/fonts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/daimpad/nozilla-ci@71939b3d4a01f3f181f2e6dc86783bae8654f2f9/design-system.css">
     <link rel="stylesheet" href="assets/css/style.v122.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
-    <!-- DNS Pre-Connects -->
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://code.jquery.com/" crossorigin />
-
-    <!-- Preload Assets -->
-    <link rel="preload" href="assets/font/fontawesome-webfont.woff?v=3.2.1" as="font" type="font/woff2" crossorigin>
   </head>
 
   <body id="gui">
-    <a href="https://github.com/manifestinteractive/teleprompter#readme" id="get-help" target="_blank" title="Get Help with TelePrompter" aria-label="Get Help with TelePrompter" data-ga data-category="Nav" data-action="Help" data-label="Get Help">
-      <i class="icon-question-sign"></i>
-    </a>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="i-play" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M18 12 L50 32 L18 52 Z"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M16 12 H26 V46 H16 Z M38 12 H48 V46 H38 Z"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 32 L20 18 H44 L58 32 L44 46 H20 Z"/><rect x="26" y="26" width="12" height="12" fill="currentColor"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+      <symbol id="i-eye-off" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 26 L20 38 H44 L58 26"/><path d="M16 36 L10 46 M32 40 V50 M48 36 L54 44"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+      <symbol id="i-reset" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M24 20 H40 L50 30 V36 L40 46 H16"/><path d="M30 10 L20 20 L30 30"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+      <symbol id="i-flip-x" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M32 6 V14 M32 22 V30 M32 38 V46 M32 54 V58"/><path d="M24 16 L8 44 H24 Z"/><path d="M40 16 L56 44 H40 Z" fill="currentColor"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+      <symbol id="i-flip-y" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 32 H14 M22 32 H30 M38 32 H46 M54 32 H58"/><path d="M16 24 L44 8 V24 Z"/><path d="M16 40 L44 56 V40 Z" fill="currentColor"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+      <symbol id="i-help" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M20 22 V14 H44 V30 L32 36 V42"/><rect x="29" y="47" width="6" height="6" fill="currentColor"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+      <symbol id="i-close" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"><path d="M16 16 L46 46 M46 16 L16 46"/><rect x="54" y="54" width="6" height="6" style="fill:var(--sig, #00FF9C)" stroke="none"/></symbol>
+    </svg>
+
     <div id="modal">
-      <a class="button icon-remove-circle close-modal" href="javascript:void(0)" role="button" aria-label="Close Modal" title="Close Modal" data-ga data-category="Nav" data-action="Modal" data-label="Close Modal"></a>
 
       <div class="modal-content">
-        <!-- Remote Control -->
-        <div id="remote-control-modal">
-          <h1>Remote Control</h1>
-          <p>Access the Following URL from another device:</p>
-          <p class="remote-url">https://promptr.tv/remote</p>
-          <p>Enter this Remote ID:</p>
-          <p class="remote-id"></p>
-          <div id="qr-code"></div>
-          <p>Remote Control QR Code</p>
+        <button class="button close-modal" type="button" aria-label="Schließen" title="Schließen"><svg class="ic " aria-hidden="true" focusable="false"><use href="#i-close"/></svg></button>
+        <!-- Kurzanleitung -->
+        <div id="help" class="sheet">
+          <div class="nz-label">Kurzanleitung</div>
+          <h2>So geht es.</h2>
+          <p>Text direkt auf der Seite bearbeiten oder einfügen. Er bleibt in diesem Browser gespeichert.</p>
+          <dl class="keys">
+            <dt><kbd class="nz-kbd">Leertaste</kbd></dt><dd>Start und Stopp</dd>
+            <dt><kbd class="nz-kbd">→</kbd> <kbd class="nz-kbd">←</kbd></dt><dd>Schneller, langsamer</dd>
+            <dt><kbd class="nz-kbd">↑</kbd> <kbd class="nz-kbd">↓</kbd></dt><dd>Schrift größer, kleiner</dd>
+            <dt><kbd class="nz-kbd">Esc</kbd></dt><dd>Zurücksetzen</dd>
+          </dl>
+          <p class="credit">Basiert auf <a href="https://github.com/manifestinteractive/teleprompter" target="_blank" rel="noopener">TelePrompter</a> von Peter Schmalfeldt (MIT/GPL). <a href="https://github.com/daimpad/nozilla-teleprompter" target="_blank" rel="noopener">Quelltext</a></p>
         </div>
 
-        <!-- Software Update -->
-        <div id="software-update">
-          <h1>Software Update</h1>
-          <p>Thanks for using <strong>TelePrompter</strong>. We just wanted to let you know that we have updated our site since the last time you visited.</p>
-          <a href="https://github.com/manifestinteractive/teleprompter/releases/latest" target="_blank" rel="nofollow noopener" data-ga data-category="Nav" data-action="Software Update" data-label="See Updates">See Updates</a>
+        <!-- Hinweis nach einem Update -->
+        <div id="software-update" class="sheet">
+          <div class="nz-label">Neu</div>
+          <h2>Aktualisiert.</h2>
+          <p>Der Teleprompter hat sich seit deinem letzten Besuch verändert. Dein Text ist noch da.</p>
+          <a class="nz-btn nz-btn--primary" href="https://github.com/daimpad/nozilla-teleprompter/commits/main" target="_blank" rel="noopener">Änderungen ansehen</a>
         </div>
       </div>
       <div class="modal-overlay"></div>
     </div>
 
     <header>
-      <h1><i class="icon icon-bullhorn"></i> <span class="clock">00:00:00</span></h1>
-      <nav>
-        <div class="colors" role="group" aria-label="Color Pickers">
-          <input type="color" id="text-color" value="#ffffff" aria-label="Text Color">
-          <input type="color" id="background-color" value="#141414" aria-label="Background Color">
+      <h1>
+        <span class="brand">nozilla<span>.</span></span>
+        <span class="app nz-label">Teleprompter</span>
+        <span class="clock" aria-label="Laufzeit">00:00:00</span>
+      </h1>
+      <nav aria-label="Steuerung">
+        <div class="colors" role="group" aria-label="Farben">
+          <input type="color" id="text-color" value="#FFFEE5" aria-label="Schriftfarbe" title="Schriftfarbe">
+          <input type="color" id="background-color" value="#0C0C0A" aria-label="Hintergrundfarbe" title="Hintergrundfarbe">
         </div>
         <div class="sliders">
-          <label class="font_size_label" aria-label="Font Size">
-            Font <span>(60)</span>:&nbsp;
-            <div class="font_size slider"></div>
-          </label><br>
-          <label class="speed_label" aria-label="Page Speed">
-            Speed <span>(35)</span>:&nbsp;
-            <div class="speed slider"></div>
-          </label>
+          <label class="font_size_label">Schrift <span>(60)</span><div class="font_size slider" aria-label="Schriftgröße"></div></label>
+          <label class="speed_label">Tempo <span>(35)</span><div class="speed slider" aria-label="Tempo"></div></label>
         </div>
-        <div class="buttons" role="group" aria-label="TelePrompter Controls">
-          <button class="button small icon-tablet remote" aria-label="Remote Control" title="Remote Control" data-ga data-category="Nav" data-action="Control" data-label="Remote"></button>
-          <button class="button small icon-eye-close dim-controls" aria-label="Dim While Reading" title="Dim While Reading" data-ga data-category="Nav" data-action="Control" data-label="Dim"></button>
-          <button class="button small icon-undo reset" aria-label="Reset TelePrompter" title="Reset TelePrompter" data-ga data-category="Nav" data-action="Control" data-label="Reset"></button>
-          <button class="button small icon-text-width flip-x" aria-label="Flip Text Horizontally" title="Flip Text Horizontally" data-ga data-category="Nav" data-action="Control" data-label="FlipX"></button>
-          <button class="button small icon-text-height flip-y" aria-label="Flip Text Vertically" title="Flip Text Vertically" data-ga data-category="Nav" data-action="Control" data-label="FlipY"></button>
-          <button class="button icon-play play active" aria-label="Play / Pause" title="Play / Pause TelePrompter" data-ga data-category="Nav" data-action="Control" data-label="Play"></button>
+        <div class="buttons" role="group" aria-label="Wiedergabe">
+          <button class="button small icon-eye-close dim-controls" type="button" aria-label="Beim Lesen abdunkeln" title="Beim Lesen abdunkeln"><svg class="ic ic-eye-on" aria-hidden="true" focusable="false"><use href="#i-eye"/></svg><svg class="ic ic-eye-off" aria-hidden="true" focusable="false"><use href="#i-eye-off"/></svg></button>
+          <button class="button small reset" type="button" aria-label="Zurücksetzen" title="Zurücksetzen (Esc)"><svg class="ic " aria-hidden="true" focusable="false"><use href="#i-reset"/></svg></button>
+          <button class="button small flip-x" type="button" aria-label="Horizontal spiegeln" title="Horizontal spiegeln"><svg class="ic " aria-hidden="true" focusable="false"><use href="#i-flip-x"/></svg></button>
+          <button class="button small flip-y" type="button" aria-label="Vertikal spiegeln" title="Vertikal spiegeln"><svg class="ic " aria-hidden="true" focusable="false"><use href="#i-flip-y"/></svg></button>
+          <button class="button small help-open" type="button" aria-label="Kurzanleitung" title="Kurzanleitung"><svg class="ic " aria-hidden="true" focusable="false"><use href="#i-help"/></svg></button>
+          <button class="button icon-play play active" type="button" aria-label="Start / Stopp" title="Start / Stopp (Leertaste)"><svg class="ic ic-play" aria-hidden="true" focusable="false"><use href="#i-play"/></svg><svg class="ic ic-pause" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg></button>
         </div>
       </nav>
     </header>
+
     <article>
       <div class="overlay">
         <div class="top"></div>
         <div class="bottom"></div>
       </div>
-      <div class="teleprompter" id="teleprompter" role="textbox" aria-multiline="true" aria-label="TelePrompter Text" contenteditable>
-        Oh, hello there. I did not see you come in. I was too busy reading off this TelePrompter. It does some pretty cool
-        things, for example:
+      <div class="teleprompter" id="teleprompter" role="textbox" aria-multiline="true" aria-label="Text des Teleprompters" contenteditable>
+        Hallo. Schön, dass du da bist.
         <br><br>
-        You can edit the text right on the page. It'll even save it for you if you happen to leave the page. That's some
-        smart thinking.
+        Diesen Text kannst du direkt hier bearbeiten oder einfach deinen eigenen einfügen. Er bleibt in diesem Browser gespeichert, auch wenn du die Seite schließt.
         <br><br>
-        If you're using an iPad, you can add a shortcut to your home screen for full screen awesomeness.
+        Oben stellst du Schriftgröße und Tempo ein. Mit den Farbfeldern wählst du Schrift- und Hintergrundfarbe. Für Aufbauten mit Spiegelglas lässt sich der Text horizontal und vertikal spiegeln.
         <br><br>
-        You can also use some handy keyboard shortcuts to speed things up. You can adjust the speed and font size at the
-        top right as well. We're also experimenting with ways to flip the text around for you fancy folks using mirrors.
+        Schneller geht es mit der Tastatur:
         <br><br>
-        The keyboard shortcuts are as follows:
+        Leertaste: Start und Stopp.
         <br><br>
-        Up: Increases Font Size
+        Pfeil rechts und links: schneller und langsamer.
         <br><br>
-        Down: Decreases Font Size
+        Pfeil hoch und runter: Schrift größer und kleiner.
         <br><br>
-        Left: Slows Down Teleprompter
+        Escape: alles zurück auf Anfang.
         <br><br>
-        Right: Speeds Up Teleprompter
+        Text aus Word oder Google Docs wird beim Einfügen aufgeräumt, damit die Absätze sauber fließen.
         <br><br>
-        Space: Starts / Stops Teleprompter
-        <br><br>
-        Escape: Resets Everything
-        <br><br>
-        Finally, we also made an effort to make sure your text will be easy to read. So if you are pasting text from a
-        Microsoft Word document, we'll do some cleaning up to make the breaks flow more easily.
-        <br><br>
-        Thanks for stopping by.
-        <br><br>
-        Love this TelePrompter?
-        <br><br>
-        <a href="https://github.com/manifestinteractive/teleprompter#project-support" contenteditable="false" class="sponsor-project" target="_blank" title="Support TelePrompter" aria-label="Support TelePrompter" data-ga data-category="Nav" data-action="Help" data-label="Support TelePrompter">
-          Support Our Work :)
-        </a><br><br>
-        Thanks !!!
+        Gute digitale Dienste. nozilla.
       </div>
-      <i class="icon-play marker" style="display: none"></i>
+      <svg class="marker" style="display: none" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 10 L50 32 L14 54 Z"/></svg>
     </article>
-
-    <script>
-      (function(d, s, id) {
-        var js, tjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) { return; }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = (window.location.hostname === 'promptr.tv')
-          ? 'https://promptr.tv/remote/socket.io/socket.io.js'
-          : 'http://' + window.location.hostname + ':3000/socket.io/socket.io.js';
-        tjs.parentNode.insertBefore(js, tjs);
-      }(document, 'script', 'teleprompter-socket'));
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S1R98WW400"></script>
-
-    <script>
-      window['ga-disable-G-S1R98WW400'] = (window.location.hostname !== 'promptr.tv');
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-S1R98WW400', {
-        'anonymize_ip': true,
-        'allow_google_signals': false
-      });
-    </script>
 
     <script src="assets/js/plugins.v122.js"></script>
     <script src="assets/js/script.v122.js"></script>
-
     <script>
-      // Load Service Worker for PWA
-      if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js').then(function(reg) {
-          console.log('Successfully registered service worker', reg);
-        }).catch(function(err) {
-          console.warn('Error whilst registering service worker', err);
+      // Offline-Fähigkeit (PWA)
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').catch(function (err) {
+          console.warn('Service Worker nicht registriert', err);
         });
       }
 
-      // Initialize App
-      window.onload = function() {
+      window.onload = function () {
         TelePrompter.init();
       };
     </script>

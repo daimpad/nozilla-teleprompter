@@ -1,35 +1,42 @@
-// use a cacheName for cache versioning
-var cacheName = 'v1:static';
+/* nozilla Teleprompter — Service Worker
+ *
+ * Netz zuerst, Cache als Rückfall: Online gibt es immer den aktuellen Stand,
+ * offline läuft die App aus dem Cache weiter. Das Original lieferte umgekehrt
+ * immer aus dem Cache — Updates kamen bei Nutzerinnen und Nutzern nie an.
+ */
+var CACHE = 'nozilla-teleprompter-v2';
+var CORE = [
+  './',
+  './index.html',
+  './manifest.json',
+  './assets/css/style.v122.css',
+  './assets/js/plugins.v122.js',
+  './assets/js/script.v122.js'
+];
 
-// during the install phase you usually want to cache static assets
-self.addEventListener('install', function(e) {
-    // once the SW is installed, go ahead and fetch the resources to make this work offline
-    e.waitUntil(
-        caches.open(cacheName).then(function(cache) {
-            return cache.addAll([
-                './',
-                './assets/css/style.v122.css',
-                './assets/css/font-awesome.min.css',
-                './assets/js/plugins.v122.js',
-                './assets/js/script.v122.js'
-            ]).then(function() {
-                self.skipWaiting();
-            });
-        })
-    );
+self.addEventListener('install', function (e) {
+  e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); }));
 });
 
-// when the browser fetches a url
-self.addEventListener('fetch', function(event) {
-    // either respond with the cached object or go ahead and fetch the actual url
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            if (response) {
-                // retrieve from cache
-                return response;
-            }
-            // fetch as normal
-            return fetch(event.request);
-        })
-    );
+// Alte Caches (auch den des Originals) entfernen
+self.addEventListener('activate', function (e) {
+  e.waitUntil(caches.keys().then(function (keys) {
+    return Promise.all(keys.filter(function (k) { return k !== CACHE; }).map(function (k) { return caches.delete(k); }));
+  }).then(function () { return self.clients.claim(); }));
+});
+
+self.addEventListener('fetch', function (e) {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(
+    fetch(e.request).then(function (res) {
+      // Erfolgreiche Antworten (auch Design System und Schriften vom CDN) für offline merken
+      if (res.ok) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
+      }
+      return res;
+    }).catch(function () {
+      return caches.match(e.request);
+    })
+  );
 });
